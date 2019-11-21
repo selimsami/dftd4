@@ -283,30 +283,30 @@ subroutine prmolc6(id,mol,molc6,molc8,molpol,  &
    write(id,'(7x,''   #   Z   '')',advance='no')
    if(present(cn))   write(id,'(''        CN'')',advance='no')
    if(present(covcn))write(id,'(''     covCN'')',advance='no')
-   if(present(q))    write(id,'(''             q'')',advance='no')
+   if(present(q))    write(id,'(''                  q'')',advance='no')
    if(present(qlmom))write(id,   '(''   n(s)'')',advance='no')
    if(present(qlmom))write(id,   '(''   n(p)'')',advance='no')
    if(present(qlmom))write(id,   '(''   n(d)'')',advance='no')
-   if(present(c6ab)) write(id,'(''          C6AA'')',advance='no')
-   if(present(c8ab)) write(id,'(''          C8AA'')',advance='no')
-   if(present(alpha))write(id,'(''          α(0)'')',advance='no')
-   if(present(rvdw)) write(id,'(''        RvdW/Å'')',advance='no')
-   if(present(hvol)) write(id,'(''        relVol'')',advance='no')
+   if(present(c6ab)) write(id,'(''              C6AA'')',advance='no')
+   if(present(c8ab)) write(id,'(''              C8AA'')',advance='no')
+   if(present(alpha))write(id,'(''              α(0)'')',advance='no')
+   if(present(rvdw)) write(id,'(''            RvdW/Å'')',advance='no')
+   if(present(hvol)) write(id,'(''            relVol'')',advance='no')
    write(id,'(a)')
    do i=1,mol%n
-      write(id,'(i11,1x,i3,1x,a2)',advance='no') &
+      write(id,'(i11,1x,i3,1x,a2,1x)',advance='no') &
       &     i,mol%at(i),mol%sym(i)
       if(present(cn))   write(id,'(f10.3)',advance='no')cn(i)
       if(present(covcn))write(id,'(f10.3)',advance='no')covcn(i)
-      if(present(q))    write(id,'(f14.8)',advance='no')q(i)
+      if(present(q))    write(id,'(f18.8)',advance='no')q(i)
       if(present(qlmom))write(id, '(f7.3)',advance='no')qlmom(1,i)
       if(present(qlmom))write(id, '(f7.3)',advance='no')qlmom(2,i)
       if(present(qlmom))write(id, '(f7.3)',advance='no')qlmom(3,i)
-      if(present(c6ab)) write(id,'(f14.8)',advance='no')c6ab(i,i)
-      if(present(c8ab)) write(id,'(f14.8)',advance='no')c8ab(i,i)
-      if(present(alpha))write(id,'(f14.8)',advance='no')alpha(i)
-      if(present(rvdw)) write(id,'(f14.8)',advance='no')rvdw(i)*autoaa
-      if(present(hvol)) write(id,'(f14.8)',advance='no')hvol(i)
+      if(present(c6ab)) write(id,'(f18.8)',advance='no')c6ab(i,i)
+      if(present(c8ab)) write(id,'(f18.8)',advance='no')c8ab(i,i)
+      if(present(alpha))write(id,'(f18.8)',advance='no')alpha(i)
+      if(present(rvdw)) write(id,'(f18.8)',advance='no')rvdw(i)*autoaa
+      if(present(hvol)) write(id,'(f18.8)',advance='no')hvol(i)
       write(id,'(a)')
    enddo
    endif
