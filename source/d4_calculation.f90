@@ -149,7 +149,9 @@ subroutine d4_calculation(iunit,env,opt,mol,dparam,dresults)
    endif
 
    allocate( q(mol%n),covcn(mol%n),gweights(ndim),refc6(ndim,ndim),&
-      &      c6ab(mol%n,mol%n),aw(23,mol%n),cn(mol%n),dqdL(3,3,mol%n+1), &
+      &      c6ab(mol%n,mol%n),&
+      &      c8ab(mol%n,mol%n),&
+      &      aw(23,mol%n),cn(mol%n),dqdL(3,3,mol%n+1), &
       &      dcndr(3,mol%n,mol%n),dcndL(3,3,mol%n),dqdr(3,mol%n,mol%n+1), &
       &      dcovcndr(3,mol%n,mol%n),dcovcndL(3,3,mol%n), &
       &      source = 0.0_wp, stat = err )
@@ -190,11 +192,11 @@ subroutine d4_calculation(iunit,env,opt,mol,dparam,dresults)
 dispersion_properties: if (opt%lmolpol) then
    if (minpr) &
    call generic_header(iunit,'Molecular Properties',49,10)
-   call mdisp(mol,dispm,ndim,q,gweights,refc6,molc6,molc8,molpol,aw,c6ab)
+   call mdisp(mol,dispm,ndim,q, gweights,refc6,molc6,molc8,molpol,aw,cout=c6ab,cout2=c8ab)
    dresults%polarizibilities = aw(1,:)
    dresults%c6_coefficients = c6ab
    if (minpr) &
-   call prmolc6(iunit,mol,molc6,molc8,molpol,covcn=covcn,q=q,c6ab=c6ab,alpha=aw(1,:))
+   call prmolc6(iunit,mol,molc6,molc8,molpol,covcn=covcn,q=q,c6ab=c6ab,c8ab=c8ab,alpha=aw(1,:))
 endif dispersion_properties
 
 if (minpr.and.(opt%lenergy.or.opt%lgradient.or.opt%lhessian)) then
