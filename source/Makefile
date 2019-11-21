@@ -17,7 +17,7 @@ main:
 	@echo "Please provide MKLLIB!!!"
 else
 main: version $(OBJ)
-	$(FCC) -o d4.exe $(OBJ) $(LIB) 
+	$(FCC) -o d4.exe $(OBJ) $(LIB) -Wl,-rpath,"$(MKLLIB)"
 endif
 
 MKL=$(shell python -c 'import os; print(" ".join(os.path.join("$(MKLLIB)", file) for file in os.listdir("$(MKLLIB)") if any("lib%s" % pattern in file for pattern in ("mkl_intel_lp64", "mkl_core", "mkl_sequential"))))')
