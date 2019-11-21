@@ -1,4 +1,4 @@
-MKLLIB=0
+MKLLIB=/anaconda3/lib/
 FCC=gfortran
 
 FFLAGS= -fPIC -O3 -Wall
@@ -12,19 +12,19 @@ mctc= mctc_global.o mctc_systools.o mctc_readin.o mctc_strings.o mctc_constants.
 
 all: main
 
+OBJ = $(mctc) $(fsrcs) $(fmain)
+
 ifeq ($(MKLLIB), 0) 
 main:
 	@echo "Please provide MKLLIB!!!"
 else
 main: version $(OBJ)
-	$(FCC) -o d4.exe $(OBJ) $(LIB) 
+	$(FCC) -o d4.exe $(OBJ) $(LIB) -Wl,-rpath,"$(MKLLIB)" 
 endif
 
 MKL=$(shell python -c 'import os; print(" ".join(os.path.join("$(MKLLIB)", file) for file in os.listdir("$(MKLLIB)") if any("lib%s" % pattern in file for pattern in ("mkl_intel_lp64", "mkl_core", "mkl_sequential"))))')
 
 LIB= -lpthread -lm $(MKL)
-
-OBJ = $(mctc) $(fsrcs) $(fmain)
 
 tests: $(ftests)
 	$(FCC) -o tests.exe $(ftests) $(LIB)
